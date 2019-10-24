@@ -1,0 +1,16 @@
+INSERT INTO usuario VALUES(1,"kelvinscherbak@hotmail.com","kelvinscherbak","123123"),(2,"kelcosta1@hotmail.com","kelvin","123123")
+
+
+INSERT INTO saldo VALUES(1,0),(2,0)
+SELECT * FROM saldo
+
+INSERT INTO card VALUES(1,"4485687533241493","995","469.841.369-97","28/07/2021"),(2,"4024 0071 8462 1166","962","469.841.369-97","28/06/2021")
+
+INSERT INTo info VALUES(1,"Kelvin Bruno Scherbak","44998507022","Kevinho","Rua alcindo Alves de lima","45","casa",1,1,1),(2,"Bruno Kelvin Costa","44999255878","Brunin","Rua das Outras","12","Apt 2",2,2,2)'
+
+SELECT * FROM info INNER JOIN saldo
+ON saldo.saldoid = info.saldoid
+Inner join usuario
+on usuario.userid = info.userid
+inner join card 
+on card.cardid = info.cardid
