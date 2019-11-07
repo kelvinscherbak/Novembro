@@ -17,7 +17,7 @@ def selOpcao(conexao):
             iduser = int(iduser)
             x = funcoesBanco.pa(conexao)
             if(x == 1):
-                print("acessar config")
+                funcoesBanco.finalizarCadastro(conexao)
             if(iduser!= False):
                 menuLogado(iduser)
         elif(op == 2):

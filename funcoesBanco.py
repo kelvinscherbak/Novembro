@@ -1,7 +1,7 @@
 import sqlite3
 import sys
 conexao = sqlite3.connect('database.sqlite')
-sqlite3.connect('database.sqlite')
+# sqlite3.connect('database.sqlite')
 
 cursor = conexao.cursor()
 login = " "
@@ -136,19 +136,6 @@ def recuperar():
         body = f"\nOlá Tudo bem?! \n\n\n\t O codigo de recuperação da sua conta é: {codigo}"
 
         msg.attach(MIMEText(body, 'plain'))
-
-        # filename = 'teste.pdf'
-
-        # attachment = open('teste.pdf', 'rb')
-
-        # part = MIMEBase('application', 'octet-stream')
-        # part.set_payload((attachment).read())
-        # encoders.encode_base64(part)
-        # part.add_header('Content-Disposition', "attachment; filename= %s" % filename)
-        # msg.attach(part)
-
-        # attachment.close()
-
         server = smtplib.SMTP('smtp.outlook.com', 587)
         server.starttls()
         server.login(fromaddr, "kelvin12345")
@@ -214,23 +201,39 @@ def logar(conexao):
     return logado
 
 def pa(conexao):
+    cursor = conexao.cursor()
     global login
-    sql = f"""SELECT primeiroacesso FROM usuario
+    sql = f"""SELECT primeiroacesso,login FROM usuario
             WHERE login = '{login}'
        """
     cursor.execute(sql)
     valor = cursor.fetchall()
-    return valor[0][0]
-# x = pa(conexao)
-# print(x)
-# logar(conexao)
-# pa(conexao)
+    aux = valor[0][0]
+    print(aux)
+    return aux
 
 
-criar_tabela_usuario(conexao)
-criar_tabela_saldo(conexao)
-criar_tabela_card(conexao)
-criar_tabela_info(conexao)
+##Finalizar o cadastro
+def finalizarCadastro(conexao):
+    cursor = conexao.cursor()
+    nome = input("Informe seu nome completo ")
+    tel = input("Informe seu numero de celular ")
+    apelido = input("Informe seu apelido ")
+    endereco = input("Informe seu Logradouro ")
+    num = input("Informe numero da sua casa")
+    comp = input("Qual seria o complemento")
+
+    sql = f"""INSERT INTO info(nome,telefone,apelido,endereco,n_endereco,complemento) 
+    VALUES("{nome}","{tel}",{apelido},"{endereco}","{num}",{comp})
+    """
+    cursor.execute(sql)
+    conexao.commit()
+
+
+# criar_tabela_usuario(conexao)
+# criar_tabela_saldo(conexao)
+# criar_tabela_card(conexao)
+# criar_tabela_info(conexao)
 
 conexao.close()
 
